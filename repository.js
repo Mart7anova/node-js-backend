@@ -1,10 +1,12 @@
-const users = [
-    {"id": 1, "name": "Anastasia"},
-    {"id": 2, "name": "Sasha"},
-]
 
-exports.getUsers = () =>{
-    return users
+const fs = require('fs')
+
+exports.getUsers = () => {
+    return new Promise((resolve, reject)=>{
+        fs.readFile('bd', function (err, buf) {
+            resolve(JSON.parse(buf.toString()))
+        })
+    })
 }
 
 exports.addUsers = (id, name) =>{

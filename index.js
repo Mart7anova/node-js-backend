@@ -19,8 +19,6 @@ const server = http.createServer((req, res) => {
     //set CORS headers
     if (cors(req, res)) return;
 
-    console.log('some req')
-
     switch (req.url) {
         case "/users":
             usersController(req, res)
@@ -28,8 +26,6 @@ const server = http.createServer((req, res) => {
         default:
             res.write(`Page not found`)
     }
-
-    res.end()
 })
 
 server.listen(7542)
