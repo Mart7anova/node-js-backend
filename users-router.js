@@ -10,8 +10,8 @@ router.use((req, res, next) => {
 
 router.get('/', async (req, res) => {
     let users = await getUsers()
-    const searchParam = req.query.search.toLowerCase()
-    if(searchParam){
+    if(req.query.search){
+        const searchParam = req.query.search.toLowerCase()
         users = users.filter(user=>user.name.toLowerCase().indexOf(searchParam) !== -1)
     }
     res.send(users);
