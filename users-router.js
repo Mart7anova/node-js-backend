@@ -25,7 +25,8 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    await addUsers(3, 'Andey')
+    const name = req.body.name
+    await addUsers(3, name)
     res.send({success: true});
 })
 
