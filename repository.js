@@ -1,7 +1,7 @@
 const {readJsonFromFile, writeJsonFromFile} = require("./fs-utils");
 
 exports.getUsers = getUsers = async () => {
-    await readJsonFromFile('db')
+    return await readJsonFromFile('db')
 }
 
 exports.addUsers = async (id, name) => {
