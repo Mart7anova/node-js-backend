@@ -9,7 +9,11 @@ router.use((req, res, next) => {
 })
 
 router.get('/', async (req, res) => {
-    const users = await getUsers()
+    let users = await getUsers()
+    const searchParam = req.query.search.toLowerCase()
+    if(searchParam){
+        users = users.filter(user=>user.name.toLowerCase().indexOf(searchParam) !== -1)
+    }
     res.send(users);
 })
 
@@ -26,7 +30,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const name = req.body.name
-    await addUsers(3, name)
+    await addUsers("3", name)
     res.send({success: true});
 })
 
