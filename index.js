@@ -1,31 +1,14 @@
-const http = require('http')
+const users = require('./users-router')
+const express = require('express')
 
-const cors = (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*')
-    res.setHeader('Access-Control-Request-Method', '*')
-    res.setHeader('Access-Control-Allow-Method', '*')
-    res.setHeader('Access-Control-Allow-Headers', '*')
-    if (req.method === 'OPTIONS') {
-        res.writeHead(200)
-        res.end()
-        return true
-    }
-    return false
-}
+const app = express()
 
-const {usersController} = require('./usersController')
+app.use('/users', users)
 
-const server = http.createServer((req, res) => {
-    //set CORS headers
-    if (cors(req, res)) return;
-
-    switch (req.url) {
-        case "/users":
-            usersController(req, res)
-            break;
-        default:
-            res.write(`Page not found`)
-    }
+app.use((req, res) => {
+    res.send(404)
 })
 
-server.listen(7542)
+app.listen(7542, () => {
+    console.log('App listening on port 7542!')
+})
