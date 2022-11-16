@@ -1,4 +1,4 @@
-const {addUsers, getUsers} = require("./repository");
+const {addUsers, getUsers, deleteUsers} = require("./repository");
 
 const express = require('express')
 const router = express.Router()
@@ -18,14 +18,21 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:id', async (req, res) => {
-    const users = await getUsers()
     const userId = req.params.id
+    console.log(userId)
+    const users = await getUsers()
     const user = users.find(user => user.id === userId)
     if (user) {
         res.send(user)
     } else {
         res.send(404)
     }
+})
+
+router.delete('/:id', async (req, res) => {
+    const userId = req.params.id
+    await deleteUsers(userId)
+    res.send(204)
 })
 
 router.post('/', async (req, res) => {
