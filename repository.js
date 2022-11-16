@@ -6,11 +6,19 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('Users', userSchema)
 
-exports.getUsers = getUsers = () => {
-    return User.find()
+exports.getUsers = (search) => {
+    if(!search){
+        return User.find()
+    }else {
+     return User.find({name: new RegExp(search, 'i')})
+    }
 }
 
-exports.deleteUsers = (id) => {
+exports.getUser = (id) => {
+    return User.find({_id: id})
+}
+
+exports.deleteUser = (id) => {
     return User.deleteOne({_id: id})
 }
 

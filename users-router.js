@@ -1,4 +1,4 @@
-const {addUsers, getUsers, deleteUsers} = require("./repository");
+const {addUsers, getUsers, deleteUser, getUser} = require("./repository");
 
 const express = require('express')
 const router = express.Router()
@@ -9,19 +9,13 @@ router.use((req, res, next) => {
 })
 
 router.get('/', async (req, res) => {
-    let users = await getUsers()
-    if(req.query.search){
-        const searchParam = req.query.search.toLowerCase()
-        users = users.filter(user=>user.name.toLowerCase().indexOf(searchParam) > -1)
-    }
+    const users = await getUsers(req.query.search)
     res.send(users);
 })
 
 router.get('/:id', async (req, res) => {
     const userId = req.params.id
-    console.log(userId)
-    const users = await getUsers()
-    const user = users.find(user => user.id === userId)
+    const user = await getUser(userId)
     if (user) {
         res.send(user)
     } else {
@@ -31,7 +25,7 @@ router.get('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     const userId = req.params.id
-    await deleteUsers(userId)
+    await deleteUser(userId)
     res.send(204)
 })
 
