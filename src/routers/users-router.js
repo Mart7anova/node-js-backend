@@ -1,4 +1,4 @@
-const {addUsers, getUsers, deleteUser, getUser, updateUser} = require("./repository");
+const {addUsers, getUsers, deleteUser, getUser, updateUser} = require("../repositories/users-repository");
 
 const express = require('express')
 const router = express.Router()
